@@ -1,15 +1,7 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def home():
-    return "hello world!"
+from routes import app
 
 
 def main():
-    home()
     app.run(port=7000, debug=True)
 
 
