@@ -1,6 +1,6 @@
 # 'https://api.frankfurter.app/1900-01-01..2020-06-15'
 import datetime
-from infrastructure.application.frank_config import *
+from .frank_config import *
 
 def make_list_url(year_from, month_from, day_from, base_url, periods):
     arr = []

@@ -1,45 +1,35 @@
-from infrastructure.messages import *
+from .messages import *
 import pandas as pd
 import requests
 
-from sqlalchemy.orm import sessionmaker
-from infrastructure.database.operations import open_session
-from infrastructure.application.domain.models import Source, Destiny
+from app.models.operations import open_session
+from app.models.source import Source
+from app.models.destiny import Destiny
 
-from infrastructure.application.frank_config import *
-from infrastructure.application.frankfurter import make_list_url, calculate_numbers_of_days
+from app.application.frank_config import *
+from app.application.frankfurter import make_list_url
 
 def main():
     arr = make_list_url(year_from, month_from, day_from, base_url, periods)
     session = open_session()
-    
-    for url in arr:
-        data = query(url)
-        save(data['base'], data['rates'])
 
+    data = query(arr[0])
+    session = save(data['base'], session) 
+
+    session.commit()
     session.close()
     return "status", "ok"
 
+def save(iso_new, session):
+    list_instances = []
+    for instance in session.query(Source.iso):
+        print(instance.iso, iso_new)
+        if instance.iso != iso_new:
+            source = Source(name='', iso=iso_new)
+            list_instances.append(source)
 
-def save(src, dst):
-
-    source = Source(name='', iso=src)
-    session.add(source)
-    session.flush()
-
-    fd = pd.DataFrame(dst)
-    df = fd.transpose()
-
-    for date in range(df.index.size):
-        for currency in range(df.columns.size):
-            destiny = Destiny(date=df.index[date], iso=df.columns[currency],
-                              value=df.loc[df.index[date],
-                                           df.columns[currency]],
-                              source_id=source.id)
-            session.add(destiny)
-            session.commit()
-    session.close()
-
+    session.add_all(list_instances)
+    return session
 
 def query(url: str):
     """exec request"""
