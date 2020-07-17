@@ -1,13 +1,14 @@
 from .messages import *
-import pandas as pd
 import requests
 
-from app.models.operations import open_session
+from app.models.operations import open_session, close_session
 from app.models.source import Source
 from app.models.destiny import Destiny
 
 from app.application.frank_config import *
 from app.application.frankfurter import make_list_url
+
+
 
 def main():
     arr = make_list_url(year_from, month_from, day_from, base_url, periods)
@@ -16,12 +17,12 @@ def main():
     data = query(arr[0])
     session = save(data['base'], session) 
 
-    session.commit()
-    session.close()
+    close_session()
     return "status", "ok"
 
 def save(iso_new, session):
     list_instances = []
+
     for instance in session.query(Source.iso):
         print(instance.iso, iso_new)
         if instance.iso != iso_new:
