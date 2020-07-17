@@ -9,5 +9,8 @@ class Country(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
-    country_sources = relationship("Source", back_populates="countries")
+    country_sources = relationship("Source", back_populates="country")
+
+    def __str__(self):
+        return f'id: {self.id}, name: {self.name}'
 
