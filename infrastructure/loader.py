@@ -1,31 +1,27 @@
-# 'https://api.frankfurter.app/1900-01-01..2020-06-15'
-# import simplejson as json
 from infrastructure.messages import *
 import pandas as pd
 import requests
-import datetime
 
 from sqlalchemy.orm import sessionmaker
-from infrastructure.database_setup import engine
+from infrastructure.database.operations import open_session
 from infrastructure.application.domain.models import Source, Destiny
 
+from infrastructure.application.frank_config import *
+from infrastructure.application.frankfurter import make_list_url, calculate_numbers_of_days
 
 def main():
-    date_from = datetime.date(1999, 1, 4)
-    date_to = date_from + datetime.timedelta(days=7)
-    params = date_from.isoformat() + '..' + date_to.isoformat()
-    url = 'https://api.frankfurter.app/' + params
-    # print(url)
-    data = query(url)
-    print(data)
-    save(data['base'], data['rates'])
+    arr = make_list_url(year_from, month_from, day_from, base_url, periods)
+    session = open_session()
+    
+    for url in arr:
+        data = query(url)
+        save(data['base'], data['rates'])
 
+    session.close()
     return "status", "ok"
 
 
 def save(src, dst):
-    Session = sessionmaker(bind=engine)
-    session = Session()
 
     source = Source(name='', iso=src)
     session.add(source)
@@ -37,12 +33,12 @@ def save(src, dst):
     for date in range(df.index.size):
         for currency in range(df.columns.size):
             destiny = Destiny(date=df.index[date], iso=df.columns[currency],
-                              value=df.loc[df.index[date], df.columns[currency]],
-                              source_id=source.id )
+                              value=df.loc[df.index[date],
+                                           df.columns[currency]],
+                              source_id=source.id)
             session.add(destiny)
             session.commit()
     session.close()
-
 
 
 def query(url: str):
