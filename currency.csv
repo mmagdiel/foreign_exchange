@@ -6,7 +6,7 @@ AMERICAN SAMOA,US Dollar,USD,840
 ANDORRA,Euro,EUR,978
 ANGOLA,Kwanza,AOA,973
 ANGUILLA,East Caribbean Dollar,XCD,951
-ANTARCTICA,No universal currency,,
+ANTARCTICA,No universal currency,-,0
 ANTIGUA AND BARBUDA,East Caribbean Dollar,XCD,951
 ARGENTINA,Argentine Peso,ARS,32
 ARMENIA,Armenian Dram,AMD,51
@@ -179,7 +179,7 @@ NORWAY,Norwegian Krone,NOK,578
 OMAN,Rial Omani,OMR,512
 PAKISTAN,Pakistan Rupee,PKR,586
 PALAU,US Dollar,USD,840
-"PALESTINE, STATE OF",No universal currency,,
+"PALESTINE, STATE OF",No universal currency,-,0
 PANAMA,Balboa,PAB,590
 PANAMA,US Dollar,USD,840
 PAPUA NEW GUINEA,Kina,PGK,598
@@ -219,7 +219,7 @@ SLOVENIA,Euro,EUR,978
 SOLOMON ISLANDS,Solomon Islands Dollar,SBD,90
 SOMALIA,Somali Shilling,SOS,706
 SOUTH AFRICA,Rand,ZAR,710
-SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS,No universal currency,,
+SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS,No universal currency,-,0
 SOUTH SUDAN,South Sudanese Pound,SSP,728
 SPAIN,Euro,EUR,978
 SRI LANKA,Sri Lanka Rupee,LKR,144

@@ -12,8 +12,13 @@ class Source(Base):
     name = Column(String, nullable=True)
     number= Column(Integer, nullable=True)
     
-    country_id = Column(None, ForeignKey("countries.id"), nullable=False)
-    country = relationship("Country", back_populates="country_sources")
+    countries = relationship("Association", back_populates="source")
 
     source_destinys = relationship("Destiny", back_populates="source")
     __table_args__ = (UniqueConstraint("iso", name="_iso_unique"),)
+
+    def __str__(self):
+        return f'id: {self.id}, name: {self.name}, iso: {self.iso}, number: {self.number}'
+
+    def to_dic(self):
+        return { 'id_source': self.id, 'name_source': self.name, 'iso': self.iso, 'number': {self.number} }

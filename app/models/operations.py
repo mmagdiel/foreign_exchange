@@ -6,4 +6,5 @@ def open_session():
     return Session()
 
 def close_session(session):
+    session.commit()
     session.close()
