@@ -4,20 +4,17 @@ import pandas as pd
 from .source import Source
 from .country import Country
 from .association import Association
-from .operations import open_session, close_session
+from .operations import open_session, close_session, able_session
 
-def load_catalog():
-	session = open_session()
+@able_session
+def load_catalog(session):
 	countries = session.query(Country).all()
-
 	if len(countries) == 0:
 		ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 		FILE_PATH = os.path.join(ROOT_DIR, "currency.csv")
 		df = pd.read_csv(filepath_or_buffer=FILE_PATH, sep=",")
-
 		save_country_all(df)
-	
-	close_session(session)
+
 
 def save_country_all(df):
 	session = open_session()

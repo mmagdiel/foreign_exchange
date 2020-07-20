@@ -2,6 +2,13 @@ import requests
 from .messages import *
 from typing import List
 
+HTTP_ERROR_MSG = "An HTTP error occurred"
+CONNECTION_ERROR_MSG = "A Connection error occurred"
+URL_REQUIRED_MSG = "A valid URL is required to make a request"
+TOO_MANY_REDIRECTS_MSG = "Too many redirects"
+READ_TIMEOUT_MSG = "The server did not send any data in the allotted amount of time"
+REQUEST_EXCEPTION_MSG = "Other error occurred"
+
 def query(url: str) -> List:
     """exec request"""
     try:
