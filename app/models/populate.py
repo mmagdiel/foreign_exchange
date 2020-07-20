@@ -15,10 +15,12 @@ def load_catalog():
 		FILE_PATH = os.path.join(ROOT_DIR, "currency.csv")
 		df = pd.read_csv(filepath_or_buffer=FILE_PATH, sep=",")
 
-		save_country_all(df, session)
+		save_country_all(df)
+	
+	close_session(session)
 
-
-def save_country_all(df, session):
+def save_country_all(df):
+	session = open_session()
 	list_countries = []
 	for country in pd.unique(df.Country):
 		country_instance = Country(name=country)
@@ -46,25 +48,25 @@ def save_currency_all(df):
 	merge_country_currency(df)
 
 
-def merge_country_currency(aprox_df):
+def merge_country_currency(df):
 	session = open_session()
 
 	countries = session.query(Country).all()
 	collection = [country.to_dic() for country in countries]
 	df_country = pd.DataFrame(collection)
 
-	df_inter = pd.merge(left=aprox_df, right=df_country, on=None, left_on='Country', right_on='name_country')
+	df_inter = pd.merge(left=df, right=df_country, on=None, left_on='Country', right_on='name_country')
 
 	currencies = session.query(Source).all()
 	collection = [currency.to_dic() for currency in currencies]
 	df_currency = pd.DataFrame(collection)
 
-	df = pd.merge(left=df_inter, right=df_currency, on=None, left_on='Code', right_on='iso')
+	df_final = pd.merge(left=df_inter, right=df_currency, on=None, left_on='Code', right_on='iso')
 	
 	list_association = []
 	for i in range(df.shape[0]):
-		id_source = int(df.id_source.values[i])
-		id_country = int(df.id_country.values[i])
+		id_source = int(df_final.id_source.values[i])
+		id_country = int(df_final.id_country.values[i])
 		association = Association(country_id=id_country, source_id=id_source)
 		list_association.append(association)
 

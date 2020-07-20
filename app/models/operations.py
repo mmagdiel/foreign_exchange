@@ -8,3 +8,4 @@ def open_session():
 def close_session(session):
     session.commit()
     session.close()
+

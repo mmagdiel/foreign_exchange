@@ -1,7 +1,7 @@
 import unittest
 import datetime
-from .frank_config import *
-from .frankfurter import make_list_url, calculate_numbers_of_days
+from .config import *
+from . import make_list_url, calculate_numbers_of_days
 
 class TestFrankfurter(unittest.TestCase):
     def test_array_correlation_size(self):

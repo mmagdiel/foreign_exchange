@@ -1,6 +1,7 @@
+import datetime
 from . import Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.sql.schema import UniqueConstraint
 
 
@@ -9,6 +10,7 @@ class Country(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+    onCreated = Column(DateTime, default=datetime.datetime.utcnow)
 
     sources = relationship("Association", back_populates="country")
     

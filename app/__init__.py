@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from .models.populate import load_catalog
 
 app = Flask(__name__)
-from .routes import *
+from .infrastructure import *
 
 def create_app(enviroment):
 	app.config.from_object(enviroment)
