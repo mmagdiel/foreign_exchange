@@ -16,7 +16,7 @@ class Destiny(Base):
     source = relationship("Source", back_populates="source_destinys")
 
     def __str__(self):
-        return f'id: {self.id}, name: {self.name}, iso: {self.iso}, value: {self.value}, onCreated: {self.onCreated}'
+        return f'id: {self.id}, date: {self.date}, iso: {self.iso}, value: {self.value}, onCreated: {self.onCreated}'
 
     def to_dic(self):
-        return { 'id_country': self.id, 'name_country': self.name, 'iso': self.iso, 'value': self.value, 'onCreated': self.onCreated }
+        return { 'id_country': self.id, 'date': self.date, 'iso': self.iso, 'value': self.value, 'onCreated': self.onCreated }

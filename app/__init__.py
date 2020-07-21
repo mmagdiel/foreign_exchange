@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from .application.onLoading import OnLoading
 
 app = Flask(__name__)
-from .infrastructure import *
+from .infrastructure.routes import *
 
 def create_app(enviroment):
 	app.config.from_object(enviroment)

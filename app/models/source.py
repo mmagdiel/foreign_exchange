@@ -22,4 +22,4 @@ class Source(Base):
         return f'id: {self.id}, name: {self.name}, iso: {self.iso}, number: {self.number}, onCreated: {self.onCreated}'
 
     def to_dic(self):
-        return { 'id_source': self.id, 'name_source': self.name, 'iso': self.iso, 'number': {self.number}, 'onCreated': {self.onCreated} }
+        return { 'id_source': self.id, 'name_source': self.name, 'iso': self.iso, 'number': self.number, 'onCreated': self.onCreated }

@@ -1,13 +1,13 @@
 import os
 import json
 import pandas as pd
+from app.models import able_session
 from app.models.source import Source
 from app.models.country import Country
 from app.models.destiny import Destiny
 from app.models.association import Association
-from app.models import able_session
-from app.application.frankfurter import Frankfurter
 from app.infrastructure.loader import query
+from app.application.frankfurter import Frankfurter
 
 class Seeding:
 	@able_session
@@ -77,7 +77,6 @@ class Seeding:
 
 		for url in array_url:
 			data = query(url)
-			print(data[0])
 			dst = data[0]['rates']
 			fd = pd.DataFrame(dst)
 			df = fd.transpose()

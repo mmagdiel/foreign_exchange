@@ -9,7 +9,8 @@ def able_session(fn):
     def gn(*args, **kwargs):
         Session = sessionmaker(bind=engine)
         session = Session()
-        fn(*args, session, **kwargs)
+        res = fn(*args, session, **kwargs)
         session.commit()
         session.close()
+        return res
     return gn
