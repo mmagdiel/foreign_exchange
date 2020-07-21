@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.sql.schema import UniqueConstraint
 
-
 class Country(Base):
     __tablename__ = "countries"
 
@@ -17,7 +16,7 @@ class Country(Base):
     __table_args__ = (UniqueConstraint("name", name="_name_unique"),)
 
     def __str__(self):
-        return f'id: {self.id}, name: {self.name}'
+        return f'id: {self.id}, name: {self.name}, onCreated: {self.onCreated}'
 
     def to_dic(self):
-        return { 'id_country': self.id, 'name_country': self.name }
+        return { 'id_country': self.id, 'name_country': self.name, 'onCreated': self.onCreated }

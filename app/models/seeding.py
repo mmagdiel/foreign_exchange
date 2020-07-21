@@ -3,8 +3,11 @@ import json
 import pandas as pd
 from app.models.source import Source
 from app.models.country import Country
+from app.models.destiny import Destiny
 from app.models.association import Association
 from app.models import able_session
+from app.application.frankfurter import Frankfurter
+from app.infrastructure.loader import query
 
 class Seeding:
 	@able_session
@@ -66,3 +69,21 @@ class Seeding:
 			list_association.append(association)
 
 		session.add_all(list_association)
+
+	@able_session
+	def by_source_destiny(self, session):
+		frank = Frankfurter()
+		array_url = frank.make_list_url()
+
+		for url in array_url:
+			data = query(url)
+			print(data[0])
+			dst = data[0]['rates']
+			fd = pd.DataFrame(dst)
+			df = fd.transpose()
+			for date in range(df.index.size):
+				for currency in range(df.columns.size):
+					destiny = Destiny(date=df.index[date], iso=df.columns[currency],
+							value=df.loc[df.index[date], df.columns[currency]], source_id=5)
+					session.add(destiny)
+			

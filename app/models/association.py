@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, ForeignKey, Integer,String, DateTime
 from sqlalchemy.sql.schema import UniqueConstraint
 
-
 class Association(Base):
 	__tablename__ = 'association'
 
@@ -14,3 +13,9 @@ class Association(Base):
 
 	source = relationship("Source", back_populates="countries")
 	country = relationship("Country", back_populates="sources")
+
+	def __str__(self):
+		return f'country_id: {self.country_id}, source_id: {self.source_id}, onCreated: {self.onCreated}'
+
+	def to_dic(self):
+		return { 'country_id': self.country_id, 'source_id': self.source_id, 'onCreated': self.onCreated }

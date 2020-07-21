@@ -1,5 +1,4 @@
 import requests
-from .messages import *
 from typing import List
 
 HTTP_ERROR_MSG = "An HTTP error occurred"
@@ -13,7 +12,7 @@ def query(url: str) -> List:
     """exec request"""
     try:
         response = requests.get(url, headers={})
-        if response.status_code => 200 or response.status_code <= 399:
+        if response.status_code >= 200 or response.status_code <= 399:
             return response.json(), 200
     except requests.exceptions.HTTPError as httpError_err:
         print(f'{HTTP_ERROR_MSG}: {httpError_err}')

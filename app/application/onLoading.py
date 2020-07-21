@@ -11,3 +11,4 @@ class OnLoading(IMigrate):
 			self.seed.save_country_all()
 			self.seed.save_currency_all()
 			self.seed.merge_country_currency()
+			self.seed.by_source_destiny()
